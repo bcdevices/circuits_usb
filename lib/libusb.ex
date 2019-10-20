@@ -3,7 +3,6 @@ defmodule LibUsb do
 
   @nif_not_loaded_err "nif not loaded"
 
-  @on_load :load_nif
   @doc false
   def load_nif do
     nif_file = '#{:code.priv_dir(:libusb)}/libusb_nif'
