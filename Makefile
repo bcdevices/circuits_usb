@@ -38,7 +38,7 @@ LIBUSB_LIB := $(LIBUSB_LIBDIR)/libusb-1.0.so
 
 PRIV_DIR := priv
 LIBUSB_CFLAGS := -I$(LIBUSB_INCLUDE_DIR)
-LIBUSB_LDFLAGS := -L$(LIBUSB_LIBDIR) -Wl,-rpath=. -lusb-1.0
+LIBUSB_LDFLAGS := -L$(LIBUSB_LIBDIR) -lusb-1.0
 LIBUSB_NIF_SRC := c_src/libusb_nif.c
 
 NIF_CFLAGS := -O2
