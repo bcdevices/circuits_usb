@@ -13,14 +13,6 @@ ERL_LDFLAGS ?= -L$(ERL_EI_LIBDIR)
 
 # NIF_CFLAGS := -O2 -flat_namespace -undefined suppress
 # NIF_LDFLAGS := -fPIC -shared -pedantic
-NIF_CFLAGS ?= -fPIC -O2 -Wall -Wextra -Wno-unused-parameter
-
-ifeq ($(CROSSCOMPILE),)
-ifeq ($(shell uname),Darwin)
-LDFLAGS += -undefined dynamic_lookup
-endif
-endif
-
 # BUILD_DIR := $(PWD)/_build
 
 PRIV_DIR := priv
@@ -43,6 +35,13 @@ LIBUSB_NIF_SRC := c_src/libusb_nif.c
 
 NIF_CFLAGS := -O2
 NIF_LDFLAGS := -fPIC -shared -pedantic
+NIF_CFLAGS ?= -fPIC -O2 -Wall -Wextra -Wno-unused-parameter
+
+ifeq ($(CROSSCOMPILE),)
+ifeq ($(shell uname),Darwin)
+NIF_LDFLAGS += -undefined dynamic_lookup
+endif
+endif
 
 LIBUSB_DL := libusb-$(LIBUSB_VERSION).tar.bz2
 LIBUSB_DL_URL := "https://iweb.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-$(LIBUSB_VERSION)/$(LIBUSB_DL)"
