@@ -24,7 +24,7 @@ PRIV_DIR := priv
 LIBUSB_NIF_SRC := c_src/libusb_nif.c
 
 NIF_CFLAGS := -O2
-NIF_LDFLAGS := -fPIC -shared -pedantic
+NIF_LDFLAGS := -fPIC -shared -pedantic -lusb-1.0
 NIF_CFLAGS ?= -fPIC -O2 -Wall -Wextra -Wno-unused-parameter
 
 ifeq ($(CROSSCOMPILE),)
