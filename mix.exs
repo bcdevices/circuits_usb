@@ -8,6 +8,7 @@ defmodule LibUsb.MixProject do
       elixir: "~> 1.9",
       compilers: [:elixir_make] ++ Mix.compilers(),
       make_clean: ["clean"],
+      make_targets: ["all"],
       make_env: make_env(),
       package: package(),
       description: description(),
