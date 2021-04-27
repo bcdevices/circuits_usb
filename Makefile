@@ -33,7 +33,7 @@ ERL_CFLAGS ?= -I$(ERL_EI_INCLUDE_DIR)
 ERL_LDFLAGS ?= -L$(ERL_EI_LIBDIR)
 
 NIF_LDFLAGS := -fPIC -shared -pedantic
-NIF_CFLAGS ?= -fPIC -O2 -Wall -Wextra -lusb-1.0
+NIF_CFLAGS ?= -fPIC -O2 -Wall -Wextra
 
 ifeq ($(CROSSCOMPILE),)
 ifeq ($(shell uname),Darwin)
