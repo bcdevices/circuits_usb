@@ -1,13 +1,17 @@
-defmodule LibUsb do
+defmodule Circuits.USB.Nif do
   require Logger
+
+  @on_load {:load_nif, 0}
+  @compile {:autoload, false}
 
   @nif_not_loaded_err "nif not loaded"
 
-  @doc false
-  def load_nif do
-    nif_file = '#{:code.priv_dir(:libusb)}/libusb_nif'
+  @moduledoc false
 
-    case :erlang.load_nif(nif_file, 0) do
+  def load_nif do
+    nif_binary = Application.app_dir(:circuits_usb, "priv/libusb_nif")
+
+    case :erlang.load_nif(nif_binary, 0) do
       :ok -> :ok
       {:error, {:reload, _}} -> :ok
       {:error, reason} -> Logger.warn("Failed to load nif: #{inspect(reason)}")
@@ -36,3 +40,4 @@ defmodule LibUsb do
 
   def set_configuration(_handle, _config), do: :erlang.nif_error(@nif_not_loaded_err)
 end
+

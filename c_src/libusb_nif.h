@@ -63,6 +63,6 @@ static ErlNifFunc nif_funcs[] = {
     {"get_configuration", 1, get_configuration, ERL_NIF_DIRTY_JOB_IO_BOUND}
 };
 
-ERL_NIF_INIT(Elixir.LibUsb, nif_funcs,  &load, &reload, &upgrade, &unload)
+ERL_NIF_INIT(Elixir.Circuits.USB.Nif, nif_funcs,  &load, &reload, &upgrade, &unload)
 
 #endif

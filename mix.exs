@@ -1,9 +1,9 @@
-defmodule LibUsb.MixProject do
+defmodule Circuits.USB.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :libusb,
+      app: :circuits_usb,
       version: "0.1.0",
       elixir: "~> 1.9",
       compilers: [:elixir_make] ++ Mix.compilers(),
@@ -14,8 +14,10 @@ defmodule LibUsb.MixProject do
       description: description(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: [format: [&format_c/1, "format"]]
-      # dialyzer: [plt_add_apps: [:iex]]
+      aliases: [format: [&format_c/1, "format"]],
+      dialyzer: [
+        flags: [:unmatched_returns, :error_handling, :race_conditions, :underspecs]
+      ]
     ]
   end
 
@@ -55,7 +57,7 @@ defmodule LibUsb.MixProject do
         Could not format C code since astyle is not available.
         """)
 
-    System.cmd(astyle, ["-n", "c_src/*.c", "src/*.h"], into: IO.stream(:stdio, :line))
+    System.cmd(astyle, ["-n", "c_src/*.c"], into: IO.stream(:stdio, :line))
   end
 
   defp format_c(_args), do: true

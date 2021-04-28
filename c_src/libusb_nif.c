@@ -279,14 +279,14 @@ static ERL_NIF_TERM bulk_receive(ErlNifEnv *env, int argc, const ERL_NIF_TERM ar
 
     acc = libusb_bulk_transfer(resource_data->handle, endpoint | LIBUSB_ENDPOINT_IN, data, length, &actual, timeout);
     if (acc < 0) {
-	free(data);
+        free(data);
         return enif_make_tuple2(env, priv->atom_error, get_libusb_error(env, acc));
     } else {
         if(!enif_alloc_binary(actual, &bin))
             return enif_make_tuple2(env, priv->atom_error, enif_make_atom(env, "alloc_failed"));
 
         memcpy(bin.data, data, actual);
-	free(data);
+        free(data);
         ERL_NIF_TERM ret = enif_make_tuple2(env, priv->atom_ok, enif_make_binary(env, &bin));
         enif_release_binary(&bin);
         return ret;
@@ -427,7 +427,7 @@ static int load(ErlNifEnv* env, void** priv, ERL_NIF_TERM info) {
     data->atom_nil = enif_make_atom(env, "nil");
     *priv = (void*) data;
 
-    libusb_rt = enif_open_resource_type(env, "Elixir.LibUsb", "libusb_resource", libusb_rt_dtor, ERL_NIF_RT_CREATE, NULL);
+    libusb_rt = enif_open_resource_type(env, "Elixir.Circuits.USB", "libusb_resource", libusb_rt_dtor, ERL_NIF_RT_CREATE, NULL);
 
     return !libusb_rt;
 }
