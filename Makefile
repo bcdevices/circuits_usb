@@ -32,18 +32,16 @@ endif
 ERL_CFLAGS ?= -I$(ERL_EI_INCLUDE_DIR)
 ERL_LDFLAGS ?= -L$(ERL_EI_LIBDIR)
 
-NIF_LDFLAGS := -fPIC -shared -pedantic
+NIF_LDFLAGS := -fPIC -shared -pedantic -lusb-1.0
 NIF_CFLAGS ?= -fPIC -O2 -Wall -Wextra
 
 ifeq ($(CROSSCOMPILE),)
 ifeq ($(shell uname),Darwin)
 NIF_LDFLAGS += -undefined dynamic_lookup
-else
-NIF_LDFLAGS += -lusb-1.0
 endif
 else
 NIF_CFLAGS += -I$(PKG_CONFIG_SYSROOT_DIR)/usr/include/
-NIF_LDFLAGS += -L$(PKG_CONFIG_SYSROOT_DIR)/usr/lib -lusb-1.0
+NIF_LDFLAGS += -L$(PKG_CONFIG_SYSROOT_DIR)/usr/lib
 endif
 
 LIBUSB_NIF_SRC := c_src/libusb_nif.c
