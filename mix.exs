@@ -7,8 +7,8 @@ defmodule LibUsb.MixProject do
       version: "0.1.0",
       elixir: "~> 1.9",
       compilers: [:elixir_make] ++ Mix.compilers(),
-      make_clean: ["clean"],
-      make_env: make_env(),
+      make_clean: ["mix_clean"],
+      make_targets: ["all"],
       package: package(),
       description: description(),
       start_permanent: Mix.env() == :prod,
@@ -16,19 +16,6 @@ defmodule LibUsb.MixProject do
       aliases: [format: [&format_c/1, "format"]]
       # dialyzer: [plt_add_apps: [:iex]]
     ]
-  end
-
-  defp make_env() do
-    case System.get_env("ERL_EI_INCLUDE_DIR") do
-      nil ->
-        %{
-          "ERL_EI_INCLUDE_DIR" => "#{:code.root_dir()}/usr/include",
-          "ERL_EI_LIBDIR" => "#{:code.root_dir()}/usr/lib"
-        }
-
-      _ ->
-        %{}
-    end
   end
 
   # Run "mix help compile.app" to learn about applications.
@@ -41,7 +28,7 @@ defmodule LibUsb.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:elixir_make, "~> 0.5", runtime: false},
+      {:elixir_make, "~> 0.6.2", runtime: false},
       {:dialyxir, "~> 0.5.1", only: :dev, runtime: false},
       {:ex_doc, "~> 0.18.1", only: [:dev, :test]}
     ]

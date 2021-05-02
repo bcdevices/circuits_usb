@@ -21,7 +21,3 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 libusb-*.tar
-*.so
-
-*libusb-1.0.*
-.tar.bz2
