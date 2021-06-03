@@ -10,7 +10,7 @@
 // - ly10-pltrunner: iface#0, EP: 0x81/0x01
 // - ly11_plt_ex: iface#1, EP: 0x82/0x02
 // - ly11_plt_pkcs: iface#2, EP: 0x83/0x03
-#define USB_INTERFACE_NUM 2
+#define USB_INTERFACE_NUM 1
 
 static ERL_NIF_TERM build_dev_list(ErlNifEnv *env, libusb_device *dev) {
     struct libusb_device_descriptor desc;
