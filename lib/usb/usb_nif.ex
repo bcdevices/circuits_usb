@@ -11,10 +11,12 @@ defmodule Circuits.USB.Nif do
   def load_nif do
     nif_binary = Application.app_dir(:circuits_usb, "priv/libusb_nif")
 
-    case :erlang.load_nif(nif_binary, 0) do
+    case :erlang.load_nif(to_charlist(nif_binary), 0) do
       :ok -> :ok
       {:error, {:reload, _}} -> :ok
-      {:error, reason} -> Logger.warn("Failed to load nif: #{inspect(reason)}")
+      {:error, reason} ->
+        Logger.warn("Failed to load nif: #{inspect(reason)}")
+        {:error, reason}
     end
   end
 
