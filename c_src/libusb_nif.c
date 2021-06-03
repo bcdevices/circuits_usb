@@ -121,7 +121,7 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
     struct libusb_endpoint_descriptor *epdesc;
     struct libusb_interface_descriptor *intdesc;
 
-    int i, r, e, found, id_vendor, id_product;
+    int i, r, e, found, id_vendor, id_product, interface_num;
     found = 0;
 
     // Get args from function call.
@@ -132,6 +132,11 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
     r = enif_get_int(env, argv[1], &id_product);
     if (!r)
         return enif_make_badarg(env);
+
+    r = enif_get_int(env, argv[2], &interface_num);
+    if (!r) {
+        return enif_make_badarg(env);
+    }
 
     // Initialize libusb.
     r = libusb_init(NULL);
@@ -183,7 +188,7 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
         }
     }
 
-    e = libusb_claim_interface(handle, 0);
+    e = libusb_claim_interface(handle, interface_num);
     if(e < 0)
     {
         enif_fprintf(stderr, "Cannot Claim Interface\r\n");
