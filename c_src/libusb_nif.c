@@ -6,12 +6,6 @@
 
 #include "libusb_nif.h"
 
-// Allocation:
-// - ly10-pltrunner: iface#0, EP: 0x81/0x01
-// - ly11_plt_ex: iface#1, EP: 0x82/0x02
-// - ly11_plt_pkcs: iface#2, EP: 0x83/0x03
-#define USB_INTERFACE_NUM 1
-
 static ERL_NIF_TERM build_dev_list(ErlNifEnv *env, libusb_device *dev) {
     struct libusb_device_descriptor desc;
     libusb_device_handle *handle = NULL;
@@ -127,7 +121,7 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
     struct libusb_endpoint_descriptor *epdesc;
     struct libusb_interface_descriptor *intdesc;
 
-    int i, r, e, found, id_vendor, id_product;
+    int i, r, e, found, id_vendor, id_product, interface_num;
     found = 0;
 
     // Get args from function call.
@@ -138,6 +132,11 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
     r = enif_get_int(env, argv[1], &id_product);
     if (!r)
         return enif_make_badarg(env);
+
+    r = enif_get_int(env, argv[2], &interface_num);
+    if (!r) {
+        return enif_make_badarg(env);
+    }
 
     // Initialize libusb.
     r = libusb_init(NULL);
@@ -189,7 +188,7 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
         }
     }
 
-    e = libusb_claim_interface(handle, USB_INTERFACE_NUM);
+    e = libusb_claim_interface(handle, interface_num);
     if(e < 0)
     {
         enif_fprintf(stderr, "Cannot Claim Interface\r\n");

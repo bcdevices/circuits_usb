@@ -19,7 +19,7 @@ defmodule Circuits.USB.Nif do
   end
 
   def list_devices, do: :erlang.nif_error(@nif_not_loaded_err)
-  def get_handle(_id_vendor, _id_product), do: :erlang.nif_error(@nif_not_loaded_err)
+  def get_handle(_id_vendor, _id_product, _interface_num), do: :erlang.nif_error(@nif_not_loaded_err)
   def release_handle(_handle), do: :erlang.nif_error(@nif_not_loaded_err)
 
   @spec ctrl_send(handle :: reference, integer, integer, integer, integer, binary, integer) :: any

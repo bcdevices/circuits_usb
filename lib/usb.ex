@@ -6,7 +6,7 @@ defmodule Circuits.USB do
 
   defdelegate list_devices, to: Nif
 
-  defdelegate get_handle(id_vendor, id_product), to: Nif
+  defdelegate get_handle(id_vendor, id_product, interface_num \\ 0), to: Nif
   defdelegate release_handle(handle), to: Nif
 
   defdelegate ctrl_send(handle, request_type, request, value, index, data, timeout),
