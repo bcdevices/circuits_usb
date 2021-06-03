@@ -6,6 +6,12 @@
 
 #include "libusb_nif.h"
 
+// Allocation:
+// - ly10-pltrunner: iface#0, EP: 0x81/0x01
+// - ly11_plt_ex: iface#1, EP: 0x82/0x02
+// - ly11_plt_pkcs: iface#2, EP: 0x83/0x03
+#define USB_INTERFACE_NUM 2
+
 static ERL_NIF_TERM build_dev_list(ErlNifEnv *env, libusb_device *dev) {
     struct libusb_device_descriptor desc;
     libusb_device_handle *handle = NULL;
@@ -183,7 +189,7 @@ static ERL_NIF_TERM get_handle(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv
         }
     }
 
-    e = libusb_claim_interface(handle, 0);
+    e = libusb_claim_interface(handle, USB_INTERFACE_NUM);
     if(e < 0)
     {
         enif_fprintf(stderr, "Cannot Claim Interface\r\n");
