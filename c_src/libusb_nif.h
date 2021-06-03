@@ -52,7 +52,7 @@ static ERL_NIF_TERM get_configuration(ErlNifEnv *env, int argc, const ERL_NIF_TE
 
 static ErlNifFunc nif_funcs[] = {
     {"list_devices", 0, list_devices, ERL_NIF_DIRTY_JOB_IO_BOUND},
-    {"get_handle", 2, get_handle, ERL_NIF_DIRTY_JOB_IO_BOUND},
+    {"get_handle", 3, get_handle, ERL_NIF_DIRTY_JOB_IO_BOUND},
     {"release_handle", 1, release_handle, ERL_NIF_DIRTY_JOB_IO_BOUND},
     {"ctrl_send", 7, ctrl_send, ERL_NIF_DIRTY_JOB_IO_BOUND},
     {"ctrl_receive", 7, ctrl_receive, ERL_NIF_DIRTY_JOB_IO_BOUND},
